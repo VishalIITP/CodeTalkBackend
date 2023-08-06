@@ -38,10 +38,16 @@ const updateToMongoose = async (userId, updatedData) => {
       updatedData,
       { new: true }
     );
-    console.log("Data updated for", updatedStudent.UserId, "is", updatedStudent);
+
+    if (updatedStudent) {
+      console.log("Data updated for", updatedStudent.UserId, "is", updatedStudent);
+    } else {
+      console.log("No student found with UserId:", userId);
+    }
   } catch (error) {
     console.log(error);
   }
 };
+
 
 module.exports = { StudentsModel, addToMongoose, updateToMongoose };
