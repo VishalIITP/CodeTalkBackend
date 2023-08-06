@@ -35,7 +35,7 @@ const addToMongoose = (data) => {
 
 const updateToMongoose=(userId,updatedData)=>{
   try {
-    StudentsModel.findOneAndUpdate({"UserId":userId},updatedData,{new:true});
+    test.students.findOneAndUpdate({"UserId":userId},updatedData,{new:true});
     console.log("Data updated for ",updatedData.UserId," is ",updatedData);
     
   } catch (error) {
