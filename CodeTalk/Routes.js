@@ -20,14 +20,20 @@ userRouter.post('/register/',(req,res)=>{
     
 })
 
-userRouter.put('/register/checkout/',(req,res)=>{
-    const updatedData=req.body;
-    updateToMongoose(req.body.UserId,updatedData);
-    
+userRouter.put('/register/checkout/', async (req, res) => {
+    try {
+        const updatedData = req.body;
+        const userId = req.body.UserId;
+        
+        await updateToMongoose(userId, updatedData);
 
-    res.status(200).send("Pform has requested to update the details");
+        res.status(200).send("User details updated successfully");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error updating user details");
+    }
+});
 
-})
 
 itemRouter.get('/details/',(req,res)=>{
     res.status(200).send("These are the items details");
