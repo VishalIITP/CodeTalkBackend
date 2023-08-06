@@ -34,7 +34,7 @@ const addToMongoose = (data) => {
 const updateToMongoose = async (userId, updatedData) => {
   try {
     const updatedStudent = await StudentsModel.findOneAndUpdate(
-      { "UserId": userId },
+      { UserId: userId },
       updatedData,
       { new: true }
     );
