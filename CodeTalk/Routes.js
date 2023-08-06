@@ -22,8 +22,8 @@ userRouter.post('/register/',(req,res)=>{
 
 userRouter.put('/register/checkout/', async (req, res) => {
     try {
-        const updatedData = JSON.parse(req.body);
-        const userId = updatedData.userId;
+        const updatedData = req.body;
+        const userId = req.body.UserId;
         
         await updateToMongoose(userId, updatedData);
 
@@ -43,3 +43,8 @@ itemRouter.get('/details/',(req,res)=>{
 
 
 module.exports={userRouter,itemRouter}
+
+
+
+
+
