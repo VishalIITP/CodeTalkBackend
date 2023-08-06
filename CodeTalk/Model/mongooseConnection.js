@@ -21,7 +21,6 @@ async function connectToMongoose(){
     mongoose.connection.on('disconnect',(err)=>{
         console.log("Mongoose Disconnected, Error: ",err);
     })
-    
 
 }
 
