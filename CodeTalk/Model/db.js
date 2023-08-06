@@ -34,11 +34,7 @@ const addToMongoose = (data) => {
 
 
 const updateToMongoose=(userId,updatedData)=>{
-  StudentsModel.findOneAndUpdate({"UserId":userId},updatedData,(err)=>{
-    if(err){
-      console.log("Error while updating data is: ",err);
-    }
-  });
+  StudentsModel.findOneAndUpdate({"UserId":userId},updatedData);
 }
 
 module.exports = { StudentsModel, addToMongoose, updateToMongoose };
