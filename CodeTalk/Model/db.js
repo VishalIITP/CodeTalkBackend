@@ -34,7 +34,14 @@ const addToMongoose = (data) => {
 
 
 const updateToMongoose=(userId,updatedData)=>{
-  StudentsModel.findOneAndUpdate({"UserId":userId},updatedData);
+  try {
+    StudentsModel.findOneAndUpdate({"UserId":userId},updatedData);
+    console.log("Data updated for ",req.body.UserId," is ",req.body);
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
 }
 
 module.exports = { StudentsModel, addToMongoose, updateToMongoose };

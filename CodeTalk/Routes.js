@@ -23,7 +23,7 @@ userRouter.post('/register/',(req,res)=>{
 userRouter.put('/register/checkout/',(req,res)=>{
     const updatedData=req.body;
     updateToMongoose(req.body.UserId,updatedData);
-    console.log("Data updated for ",req.body.UserId," is ",req.body);
+    
 
     res.status(200).send("Pform has requested to update the details");
 
