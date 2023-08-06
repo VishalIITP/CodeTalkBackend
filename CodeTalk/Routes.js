@@ -1,5 +1,5 @@
 const express=require('express')
-const {addToMongoose}=require('./Model/db')
+const {addToMongoose, updateToMongoose}=require('./Model/db')
 
 
 userRouter=express.Router();
@@ -13,11 +13,20 @@ userRouter.get('/details/',(req,res)=>{
 
 
 userRouter.post('/register/',(req,res)=>{
-    console.log("Ye hoon bhai json.parse ke upar wala: ",req.body);
+    console.log("The new user data is: ",req.body);
     addToMongoose(req.body);
 
     res.status(200).send("YD forms has requested a post method from reactjs");
     
+})
+
+userRouter.put('/register/checkout/',(req,res)=>{
+    const updatedData=req.body;
+    updateToMongoose(req.body.UserId,updatedData);
+    console.log("Data updated for ",req.body.UserId," is ",req.body);
+
+    res.status(200).send("Pform has requested to update the details");
+
 })
 
 itemRouter.get('/details/',(req,res)=>{
