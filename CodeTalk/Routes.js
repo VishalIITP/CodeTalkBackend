@@ -1,5 +1,5 @@
 const express = require('express')
-const { addToMongoose, findbyIdMongoose, updateToMongoose } = require('./Model/db')
+const { addToMongoose, findbyIdMongoose, updateToMongoose, addFeedbackToMongoose } = require('./Model/db')
 
 
 userRouter = express.Router();
@@ -7,8 +7,8 @@ userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
     try {
-        userId =req.body.UserId;
-        console.log("Ye mil raha hai bhai id",userId);
+        userId = req.body.UserId;
+        console.log("Ye mil raha hai bhai id", userId);
         await findbyIdMongoose(userId);
         res.status(200).send("User details fetched successfully");
 
@@ -23,11 +23,14 @@ userRouter.get('/', async (req, res) => {
 
 
 userRouter.post('/register/', (req, res) => {
-    console.log("The new user data is: ", req.body);
-    addToMongoose(req.body);
-
-    res.status(200).send("YD forms has requested a post method from reactjs");
-
+    try {
+        // console.log("The new user data is: ", req.body);
+        addToMongoose(req.body);
+        res.status(200).send("YD forms has requested a post method from reactjs");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error while posting new student data");
+    }
 })
 
 userRouter.put('/register/checkout/', async (req, res) => {
@@ -44,13 +47,22 @@ userRouter.put('/register/checkout/', async (req, res) => {
     }
 });
 
+userRouter.post('/feedback/', async (req, res) => {
+
+    try {
+        await addFeedbackToMongoose(req.body);
+        res.status(200).send("Feedback added successfully")
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error while posting new feedback");
+    }
+})
 
 
 
 
 
-
-module.exports = { userRouter}
+module.exports = { userRouter }
 
 
 
