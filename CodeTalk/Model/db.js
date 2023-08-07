@@ -3,11 +3,13 @@ const mongoose = require("mongoose");
 
 const studschema = new mongoose.Schema({
   UserId: { type: String },
+  UserRefrralCode:{ type: String },
   FirstName: { type: String },
   LastName: { type: String },
   College: { type: String },
   Email: { type: String },
   Phone: { type: String },
+  RefrrelCodeApplied:{type:String},
   Time: { type: String },
   VPA: { type: String },
   PTime: { type: String }
@@ -26,11 +28,13 @@ const addToMongoose = async (data) => {
   try {
     var new_stud = new StudentsModel({
       UserId: data.UserId,
+      UserRefrralCode:data.UserRefrralCode,
       FirstName: data.FirstName,
       LastName: data.LastName,
       College: data.College,
       Email: data.Email,
       Phone: data.Phone,
+      RefrrelCodeApplied:data.RefrrelCodeApplied,
       Time: data.Time,
       VPA: data.VPA,
       PTime: data.PTime,
