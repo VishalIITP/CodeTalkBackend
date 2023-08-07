@@ -31,6 +31,23 @@ const addToMongoose = (data) => {
   new_stud.save();
 };
 
+const findbyIdMongoose= async (userId)=>{
+  try {
+    const studentwithgivenId= await StudentsModel.findOne({UserId:userId})
+    if(studentwithgivenId){
+      console.log("Student with ", userId, " is: ", studentwithgivenId);
+    }else{
+      console.log("No student with UserId: ", userId ," is found");
+    }
+
+  } catch (error) {
+    console.log(error)
+    
+  }
+
+}
+
+
 const updateToMongoose = async (userId, updatedData) => {
   try {
     const updatedStudent = await StudentsModel.findOneAndUpdate(
@@ -50,4 +67,4 @@ const updateToMongoose = async (userId, updatedData) => {
 };
 
 
-module.exports = { StudentsModel, addToMongoose, updateToMongoose };
+module.exports = { StudentsModel, addToMongoose,findbyIdMongoose ,updateToMongoose };
