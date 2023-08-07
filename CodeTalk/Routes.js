@@ -3,7 +3,6 @@ const { addToMongoose, findbyIdMongoose, updateToMongoose } = require('./Model/d
 
 
 userRouter = express.Router();
-itemRouter = express.Router();
 
 
 userRouter.get('/', async (req, res) => {
@@ -46,14 +45,12 @@ userRouter.put('/register/checkout/', async (req, res) => {
 });
 
 
-itemRouter.get('/details/', (req, res) => {
-    res.status(200).send("These are the items details");
-})
 
 
 
 
-module.exports = { userRouter, itemRouter }
+
+module.exports = { userRouter}
 
 
 

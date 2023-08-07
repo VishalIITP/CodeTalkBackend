@@ -37,7 +37,7 @@ const findbyIdMongoose= async (userId)=>{
     if(studentwithgivenId){
       console.log("Student with ", userId, " is: ", studentwithgivenId);
     }else{
-      console.log("No student with UserId: ", userId ," is found");
+      console.log("No student with UserId: ", userId," is found");
     }
 
   } catch (error) {
