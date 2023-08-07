@@ -35,7 +35,7 @@ userRouter.put('/register/checkout/', async (req, res) => {
         const updatedData = req.body;
         const userId = req.body.UserId;
 
-        await updateToMongoose(userId, updatedData);
+        await updateToMongoose(userId.toString(), updatedData);
 
         res.status(200).send("User details updated successfully");
     } catch (error) {
