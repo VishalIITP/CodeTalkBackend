@@ -1,5 +1,12 @@
 const express = require('express')
-const { addToMongoose, findbyIdMongoose, updateToMongoose, addFeedbackToMongoose } = require('./Model/db')
+const { 
+    addToMongoose, 
+    findbyIdMongoose, 
+    updateToMongoose, 
+    addFeedbackToMongoose,
+    findallStudentsMongoose,
+    findallFeedbackMongoose
+} = require('./Model/db')
 
 
 userRouter = express.Router();
@@ -16,6 +23,29 @@ userRouter.get('/', async (req, res) => {
         console.log(error);
         res.status(500).send("Internal server error while getting student details")
 
+    }
+
+})
+
+userRouter.get('/allStudents/', async (req,res)=>{
+    try {
+        let allStuds=await findallStudentsMongoose();
+        res.status(200).send(allStuds);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error while getting all Registered Students");
+    }
+})
+
+userRouter.get('/allFeedbacks/',async (req,res)=>{
+    try {
+        let allFeeds=await findallFeedbackMongoose();
+        res.status(200).send(allFeeds);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error while getting all Feedbacks")
     }
 
 })
@@ -60,11 +90,4 @@ userRouter.post('/feedback/', async (req, res) => {
 
 
 
-
-
 module.exports = { userRouter }
-
-
-
-
-

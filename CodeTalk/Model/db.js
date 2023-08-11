@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 
 const studschema = new mongoose.Schema({
   UserId: { type: String },
-  UserRefrralCode:{ type: String },
+  UserRefrralCode: { type: String },
   FirstName: { type: String },
   LastName: { type: String },
   College: { type: String },
   Email: { type: String },
   Phone: { type: String },
-  RefrrelCodeApplied:{type:String},
+  RefrrelCodeApplied: { type: String },
   Time: { type: String },
   VPA: { type: String },
   PTime: { type: String }
@@ -28,13 +28,13 @@ const addToMongoose = async (data) => {
   try {
     var new_stud = new StudentsModel({
       UserId: data.UserId,
-      UserRefrralCode:data.UserRefrralCode,
+      UserRefrralCode: data.UserRefrralCode,
       FirstName: data.FirstName,
       LastName: data.LastName,
       College: data.College,
       Email: data.Email,
       Phone: data.Phone,
-      RefrrelCodeApplied:data.RefrrelCodeApplied,
+      RefrrelCodeApplied: data.RefrrelCodeApplied,
       Time: data.Time,
       VPA: data.VPA,
       PTime: data.PTime,
@@ -57,6 +57,38 @@ const findbyIdMongoose = async (userId) => {
     console.log(error)
 
   }
+}
+
+const findallStudentsMongoose = async () => {
+  try {
+    const allRegStuds = await StudentsModel.find({});
+    if (allRegStuds) {
+      console.log("All registered Studedents are fetched successfully");
+      return allRegStuds;
+    } else {
+      console.log("No Registerd Students to show");
+    }
+
+  } catch (error) {
+    console.log(error)
+
+  }
+}
+
+const findallFeedbackMongoose = async()=>{
+  try {
+    const allfeedbacks=await FeedbackModel.find({});
+    if(allfeedbacks){
+      console.log("All feedbacks fetched successfully");
+      return allfeedbacks;
+    }else{
+      console.log("There are no feedbacks");
+    }
+    
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 
@@ -90,4 +122,12 @@ const addFeedbackToMongoose = async (data) => {
   }
 }
 
-module.exports = { StudentsModel, addToMongoose, findbyIdMongoose, updateToMongoose, addFeedbackToMongoose };
+module.exports = { 
+  StudentsModel, 
+  addToMongoose, 
+  findbyIdMongoose, 
+  updateToMongoose, 
+  addFeedbackToMongoose,
+  findallStudentsMongoose,
+  findallFeedbackMongoose
+};
