@@ -10,6 +10,7 @@ const studschema = new mongoose.Schema({
   Email: { type: String },
   Phone: { type: String },
   RefrrelCodeApplied: { type: String },
+  ReferredBy:{type:String},
   Time: { type: String },
   VPA: { type: String },
   PTime: { type: String }
@@ -35,6 +36,7 @@ const addToMongoose = async (data) => {
       Email: data.Email,
       Phone: data.Phone,
       RefrrelCodeApplied: data.RefrrelCodeApplied,
+      ReferredBy:data.ReferredBy,
       Time: data.Time,
       VPA: data.VPA,
       PTime: data.PTime,
@@ -45,13 +47,14 @@ const addToMongoose = async (data) => {
   }
 };
 
-const findbyIdMongoose = async (userId) => {
+const findbyQueryMongoose = async (query) => {
   try {
-    const studentwithgivenId = await StudentsModel.findOne({ UserId: userId })
-    if (studentwithgivenId) {
-      console.log("Student with ", userId, " is: ", studentwithgivenId);
+    const studentwithgivenQuery = await StudentsModel.findOne(query)
+    if (studentwithgivenQuery) {
+      console.log("Correct Referral Code Applied-",query.UserRefrralCode," Refered by:",studentwithgivenQuery.FirstName, studentwithgivenQuery.LastName);
+      return studentwithgivenQuery;
     } else {
-      console.log("No student with UserId: ", userId, " is found");
+      console.log(query.UserRefrralCode, "is not a valid Referral Code");
     }
   } catch (error) {
     console.log(error)
@@ -125,7 +128,7 @@ const addFeedbackToMongoose = async (data) => {
 module.exports = { 
   StudentsModel, 
   addToMongoose, 
-  findbyIdMongoose, 
+  findbyQueryMongoose, 
   updateToMongoose, 
   addFeedbackToMongoose,
   findallStudentsMongoose,
