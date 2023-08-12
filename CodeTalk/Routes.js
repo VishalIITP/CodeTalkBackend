@@ -12,16 +12,17 @@ const {
 userRouter = express.Router();
 
 
-userRouter.get('/:query', async (req, res) => {
+userRouter.get('/referral/:query', async (req, res) => {
     try {
-        let query = req.params.query;
+        const query = req.params.query;
+        console.log("Ye hai apki query",query);
         const queryObj={"UserRefrralCode":query};
-        console.log("Ye mil raha hai bhai query object", queryObj);
         let studentbyQuery= await findbyQueryMongoose(queryObj);
         if(studentbyQuery){
             res.status(200).send({"Code":studentbyQuery.UserRefrralCode, "ReferredBy":studentbyQuery.FirstName+" "+studentbyQuery.LastName});
         }else{
             res.status(404).send("This is not a valid referral code");
+            console.log("Invalid referral Code Applied")
         }
 
     } catch (error) {
@@ -32,7 +33,7 @@ userRouter.get('/:query', async (req, res) => {
 
 })
 
-userRouter.get('/allStudents/', async (req,res)=>{
+userRouter.get('/admin/allStudents/', async (req,res)=>{
     try {
         let allStuds=await findallStudentsMongoose();
         res.status(200).send(allStuds);
@@ -43,7 +44,7 @@ userRouter.get('/allStudents/', async (req,res)=>{
     }
 })
 
-userRouter.get('/allFeedbacks/',async (req,res)=>{
+userRouter.get('/admin/allFeedbacks/',async (req,res)=>{
     try {
         let allFeeds=await findallFeedbackMongoose();
         res.status(200).send(allFeeds);
