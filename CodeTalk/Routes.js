@@ -1,27 +1,32 @@
 const express = require('express')
 const { 
     addToMongoose, 
-    findbyIdMongoose, 
+    findbyQueryMongoose, 
     updateToMongoose, 
     addFeedbackToMongoose,
     findallStudentsMongoose,
     findallFeedbackMongoose
-} = require('./Model/db')
+} = require('./Model/db');
 
 
 userRouter = express.Router();
 
 
-userRouter.get('/', async (req, res) => {
+userRouter.get('/:query', async (req, res) => {
     try {
-        userId = req.body.UserId;
-        console.log("Ye mil raha hai bhai id", userId);
-        await findbyIdMongoose(userId);
-        res.status(200).send("User details fetched successfully");
+        let query = req.params.query;
+        const queryObj={"UserRefrralCode":query};
+        console.log("Ye mil raha hai bhai query object", queryObj);
+        let studentbyQuery= await findbyQueryMongoose(queryObj);
+        if(studentbyQuery){
+            res.status(200).send({"Code":studentbyQuery.UserRefrralCode, "ReferredBy":studentbyQuery.FirstName+" "+studentbyQuery.LastName});
+        }else{
+            res.status(404).send("This is not a valid referral code");
+        }
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal server error while getting student details")
+        res.status(500).send("Internal server error while getting student query details")
 
     }
 
